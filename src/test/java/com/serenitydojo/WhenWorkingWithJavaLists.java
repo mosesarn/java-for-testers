@@ -1,20 +1,22 @@
 package com.serenitydojo;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
+
 //import static org.assertj.core.api.assertThat;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class WhenWorkingWithJavaLists {
     @Test
     public void creatingASimpleList(){
-        List simpleList = new ArrayList();
+        List simpleList = new ArrayList(); // List simpleList = new LinkedList(); linked list is more faster if you are adding a new element. array list takes more memory if adding a new element.
+
         simpleList.add("a string value");
         simpleList.add(123);
         simpleList.add(true);
-//Assertions.assertThat(simpleList).contains("a string value",123);
+Assertions.assertThat(simpleList).contains("a string value",123);
         //assertThat(simpleList).contains("a string value");
         Assert.assertEquals(simpleList.get(0).toString(),"a string value");
     }
@@ -53,6 +55,7 @@ public class WhenWorkingWithJavaLists {
         List<String> names = Arrays.asList("Moses","Arnold","Kumar","Arnold","Kishore");
         List<String> middleNames = names.subList(1,3);
         Assert.assertEquals(middleNames.get(1),"Kumar");
+        Assertions.assertThat(middleNames).contains("Arnold","Kumar","Arnold");
     }
     @Test
     public void findingTheSize(){

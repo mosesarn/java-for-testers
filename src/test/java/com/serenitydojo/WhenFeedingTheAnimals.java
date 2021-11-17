@@ -44,9 +44,25 @@ public class WhenFeedingTheAnimals {
     public void shouldFeedPremiumCatsPremiumFood()
     {
         Feeder feeder = new Feeder();
-        FoodType food = feeder.feeds(CAT, false);
+        FoodType food = feeder.feeds(CAT, true);
         System.out.println(food);
-        Assert.assertEquals(food, TUNA);
+        Assert.assertEquals(food, SALMON);
+    }
+    @Test
+    public void shouldFeedPremiumDogsDeluxDogFood()
+    {
+        Feeder feeder = new Feeder();
+        FoodType food = feeder.feeds(DOG, true);
+        System.out.println(food);
+        Assert.assertEquals(food, DELUXE_DOG_FOOD);
+    }
+    @Test
+    public void shouldFeedPremiumHampsterLattuce()
+    {
+        Feeder feeder = new Feeder();
+        FoodType food = feeder.feeds(HAMSTER, true);
+        System.out.println(food);
+        Assert.assertEquals(food, LETTUCE);
     }
     @Test
     public void listOfColors(){

@@ -2,15 +2,13 @@ package com.serenitydojo;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Percentage;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class WhenWritingReadableAssertions {
 
@@ -22,7 +20,7 @@ public class WhenWritingReadableAssertions {
         int sum = a + b + c;
 
         // Check that the sum is 35
-        assertEquals(sum,35);
+        assertEquals(35,sum);
         assertThat(sum).isBetween(30,40);
         assertThat(sum).isEqualTo(35);
         Assertions.assertThat(sum).isCloseTo(30, Percentage.withPercentage(17));

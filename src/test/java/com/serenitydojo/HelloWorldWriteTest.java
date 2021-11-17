@@ -22,6 +22,9 @@ public class HelloWorldWriteTest {
         System.out.println(" final int This year age : " +ageThisYear);
         int ageNextYear = ageThisYear+1;
         System.out.println(" int Next year age : " +ageNextYear);
+        System.out.println();
+
+
 
         //Decimal Values
         long starsInTheGalaxy = 10000000000L;
