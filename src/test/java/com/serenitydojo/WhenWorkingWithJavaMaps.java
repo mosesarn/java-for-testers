@@ -30,7 +30,8 @@ public class WhenWorkingWithJavaMaps {
 //        numberOfBallsByColor.merge();
 //        numberOfBallsByColor.remove();
 //        numberOfBallsByColor.remove();
-//        numberOfBallsByColor.replace();
+//        numberOfBallsByColor.replace(); //if key exists then replace the existing with current value. it does not exists does nothing.
+
 //        numberOfBallsByColor.replace();
 //        numberOfBallsByColor.replaceAll();;
         Integer numberOfRedBalls = numberOfBallsByColor.get("red");
