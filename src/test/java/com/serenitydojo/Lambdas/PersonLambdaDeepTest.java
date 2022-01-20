@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class PersonLambdaDeepTest {
 
@@ -14,13 +15,15 @@ public class PersonLambdaDeepTest {
     Person bill = new Person("Bill", Person.Gender.MALE,40,"Blue");
     Person tim = new Person("Tim", Person.Gender.MALE,10,"Red");
     Person susan = new Person("Susan", Person.Gender.FEMALE,50,"Yellow");
+    Person sarah = new Person("Sarah", Person.Gender.FEMALE,50,"Orange");
+    Person paul = new Person("Paul", Person.Gender.MALE,40,"Cyan");
 
     PersonChecker likeBlue = person -> person.getFavouriteColor().equals("Blue");
     PersonChecker likeRed = person -> person.getFavouriteColor().equals("Red");
     PersonChecker likeGreen = person -> person.getFavouriteColor().equals("Green");
     PersonChecker peopleUnder35 = person -> person.getAge()<35;
     PersonChecker likeRedOrUnder30 = person -> person.getFavouriteColor().equals("Red")||person.getAge()<30;
-    List<Person> allThePeople = Arrays.asList(sam,bill,tim,susan);
+    List<Person> allThePeople = Arrays.asList(sam,bill,tim,susan,sarah,paul);
     PeopleDataBase people = new PeopleDataBase(allThePeople);
     @Test
     public void ICanCreateSomePeople(){
@@ -79,9 +82,27 @@ public class PersonLambdaDeepTest {
 
     @Test
     public void peopleCanEarnPoints(){
+        // allThePeople.stream().parallelStream() or allThePeople.parallelStream()
         allThePeople.forEach(
-                person -> person.earnPoints(100)
+                person -> {
+                    person.earnPoints(200);
+                }
         );
-        allThePeople.forEach(person -> System.out.println("Point For" + person.getName()));
+        allThePeople.forEach(person -> System.out.println("Point For  " + person.getName()+ "-->"+person.getPoints()));
+    }
+    @Test
+    public void parallelPeopleCanEarnPoints(){
+        // allThePeople.stream().parallelStream() or allThePeople.parallelStream()
+        allThePeople.stream()
+                .peek(person -> System.out.println("Point For  " + person.getName()+ "-->"+person.getPoints()))
+                .peek(person -> person.earnPoints(250))
+                .forEach(person -> System.out.println("Updated Points  " + person.getName()+ "-->"+person.getPoints()));
+
+        //List all the colors of the people
+        List<String> allTheColors = allThePeople.stream()
+                .map(Person::getFavouriteColor) //same as : person -> person.getFavouriteColor()
+                .collect(Collectors.toList());
+        System.out.println(allTheColors);
+
     }
 }

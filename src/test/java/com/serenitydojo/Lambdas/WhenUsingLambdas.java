@@ -60,5 +60,16 @@ public class WhenUsingLambdas {
                 .orElse(0);
         System.out.println(minLenght1);
     }
+    @Test
+    public void lambdaTest(){
+        List<String> filteredColors =  colors.stream()
+                .sorted()
+                //.forEach(color -> System.out.println(color));
+               .map(color -> color.toUpperCase())
+
+               .collect(Collectors.toList());
+
+        System.out.println(filteredColors);
+    }
 
 }
