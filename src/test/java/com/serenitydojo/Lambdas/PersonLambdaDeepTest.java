@@ -1,10 +1,12 @@
 package com.serenitydojo.Lambdas;
 
-import com.serenitydojo.LamdaDeepDrivePeople.*;
+import com.serenitydojo.LamdaDeepDrivePeople.PeopleDataBase;
+import com.serenitydojo.LamdaDeepDrivePeople.Person;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -18,11 +20,11 @@ public class PersonLambdaDeepTest {
     Person sarah = new Person("Sarah", Person.Gender.FEMALE,50,"Orange");
     Person paul = new Person("Paul", Person.Gender.MALE,40,"Cyan");
 
-    PersonChecker likeBlue = person -> person.getFavouriteColor().equals("Blue");
-    PersonChecker likeRed = person -> person.getFavouriteColor().equals("Red");
-    PersonChecker likeGreen = person -> person.getFavouriteColor().equals("Green");
-    PersonChecker peopleUnder35 = person -> person.getAge()<35;
-    PersonChecker likeRedOrUnder30 = person -> person.getFavouriteColor().equals("Red")||person.getAge()<30;
+    Predicate<Person> likeBlue = person -> person.getFavouriteColor().equals("Blue");
+    Predicate<Person> likeRed = person -> person.getFavouriteColor().equals("Red");
+    Predicate<Person> likeGreen = person -> person.getFavouriteColor().equals("Green");
+    Predicate<Person> peopleUnder35 = person -> person.getAge()<35;
+    Predicate<Person> likeRedOrUnder30 = person -> person.getFavouriteColor().equals("Red")||person.getAge()<30;
     List<Person> allThePeople = Arrays.asList(sam,bill,tim,susan,sarah,paul);
     PeopleDataBase people = new PeopleDataBase(allThePeople);
     @Test
@@ -62,7 +64,7 @@ public class PersonLambdaDeepTest {
     @Test
     public void ICanSearchForPeopleWhoLikeGreenOrWhoAre30OrUnder(){
         //Search for people under 35
-        LikeGreen likeGreen = new LikeGreen();
+      //  LikeGreen likeGreen = new LikeGreen();
         List<Person> PeopleWhoLikeGreenAndUnder30 = people.findPeopleWho((Predicate<Person>) likeGreen); //???
         Assertions.assertThat(PeopleWhoLikeGreenAndUnder30).contains(sam,tim);
     }
@@ -75,10 +77,19 @@ public class PersonLambdaDeepTest {
 //                return person.getFavouriteColor().equals("Blue");
 //            }
 //        };
-        PersonChecker likeBlue = person -> person.getFavouriteColor().equals("Blue");
+        Predicate<Person> likeBlue = person -> person.getFavouriteColor().equals("Blue");
         List<Person> PeopleWhoLikeBlue = people.findPeopleWho((Predicate<Person>) likeBlue); //???
         Assertions.assertThat(PeopleWhoLikeBlue).contains(bill);
     }
+
+//    public List<Person> findAllThePeopleWho(LikeREdOrUnder30 check) {
+//        List<Person> matchingPeople = new ArrayList<>();
+//        for(Person person : allThePeople){
+//            if(check.test(person))
+//                matchingPeople.add(person);
+//        }
+//        return matchingPeople;
+//    }
 
     @Test
     public void peopleCanEarnPoints(){
@@ -101,8 +112,17 @@ public class PersonLambdaDeepTest {
         //List all the colors of the people
         List<String> allTheColors = allThePeople.stream()
                 .map(Person::getFavouriteColor) //same as : person -> person.getFavouriteColor()
+                //.sorted(Comparator.naturalOrder())// Comparator.reverseOrder(),nullsFirst(), nullsLast()
+                .sorted(Comparator.comparing((color -> color.length())))
+                .distinct()//removes the duplicates
                 .collect(Collectors.toList());
         System.out.println(allTheColors);
 
     }
+
+//    public class LikeRedOrUnder30{
+//       public boolean test(Person person){
+//           return (person.getFavouriteColor().equals("Red")||(person.getAge()<=30));
+//       }
+//    }
 }
