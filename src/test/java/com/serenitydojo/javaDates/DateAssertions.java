@@ -13,10 +13,10 @@ public static DateAssertions assertThat(LocalDate actual){
         return new DateAssertions(actual);
 }
 
-    public DateAssertions isEqualTo(int expectedDay, Month expectedMonth, int expectedYear) {
+    public DateAssertions isEqualTo(int expectedDay , Month expectedMonth, int expectedYear ) {
         if(actual.getYear() != expectedYear ||
                 actual.getMonth() != expectedMonth ||
-                actual.getDayOfMonth() != expectedYear){
+                actual.getDayOfMonth() != expectedDay){
             failWithMessage("Expected  a date of %s %s %s but was %s", expectedDay,expectedMonth,expectedYear,actual);
         }
         return this;
