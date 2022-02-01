@@ -6,7 +6,7 @@ import com.serenitydojo.FruitsChallenge.FruitUnAvailableException;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-public class WhenTestingFruitsShop {
+public class WhenTestingFruitsShopCatalog {
     Catalog catalog = new Catalog();;
     @Test
     public void createANewCatalog(){
