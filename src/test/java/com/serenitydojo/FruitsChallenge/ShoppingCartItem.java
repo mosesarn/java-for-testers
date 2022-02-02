@@ -1,10 +1,11 @@
 package com.serenitydojo.FruitsChallenge;
 
-class ShoppingCartItem {
+public class ShoppingCartItem {
 
-    private static  Fruit fruit;
-    private static  double quantity;
-    private static  double totalPrice;
+
+    private final Fruit fruit;
+    private final double quantity;
+    private final double totalPrice;
 
     public ShoppingCartItem(Fruit fruit, double quantity, double totalPrice) {
         this.fruit = fruit;
@@ -15,10 +16,10 @@ class ShoppingCartItem {
     public Double getTotalCost() {
         return totalPrice;
     }
-   public   Double getQuantity(){
+    public   Double getQuantity(){
         return quantity;
-   }
-   public  Fruit getFruit(){
+    }
+    public  Fruit getFruit(){
         return fruit;
-   }
+    }
 }

@@ -37,8 +37,6 @@ public ShoppingCartAdder add(Double quantity){
             this.quantity= quantity;
         }
 
-
-
         public ShoppingCart kilosOf(Fruit fruit){
             double basePrice = shoppingCart.catalog.getPrice(fruit);
             double discountedPrice = (quantity >= 5) ? basePrice * 0.9 : basePrice;

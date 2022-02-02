@@ -1,17 +1,12 @@
-package com.serenitydojo;
-
-import com.serenitydojo.FruitsChallenge.Catalog;
-import com.serenitydojo.FruitsChallenge.Fruit;
-import com.serenitydojo.FruitsChallenge.ShoppingCart;
+package com.serenitydojo.FruitsChallenge;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
 public class WhenTestingFruitShopShoppingCart {
-    private Catalog catalog = new Catalog();
+    private final Catalog catalog = new Catalog();
     private ShoppingCart shoppingCart;
-
 
     @Before
     public void setupCatalog(){
@@ -45,8 +40,21 @@ public class WhenTestingFruitShopShoppingCart {
     @Test
     public void shouldKeepTrackOfTheTotalPrice(){
         catalog.setPrice(Fruit.Banana,3.00);
-        shoppingCart.add(1.00).kilosOf(Fruit.Banana);
-        Assertions.assertThat(shoppingCart.get).isLessThanOrEqualTo(3.5);
+        catalog.setPrice(Fruit.Apple,2.00);
+        shoppingCart.add(2.0).kilosOf(Fruit.Banana);
+        shoppingCart.add(2.0).kilosOf(Fruit.Apple);
+        Assertions.assertThat(shoppingCart.getTotalPrice()).isEqualTo(10.00);
 
+    }
+    @Test
+    public void shouldGiveBuilkDiscounts(){
+        shoppingCart.add(10.0).kilosOf(Fruit.Banana);// 6
+        Assertions.assertThat(shoppingCart.getTotalPrice()).isEqualTo(54.00);
+    }
+    @Test
+    public void shouldGiveDiscountsOnlyApplyToQuantitiesOverFiveKgs(){
+        shoppingCart.add(10.0).kilosOf(Fruit.Banana);// 6
+        shoppingCart.add(2.0).kilosOf(Fruit.Apple);// 4
+        Assertions.assertThat(shoppingCart.getTotalPrice()).isEqualTo(62.00);
     }
 }
