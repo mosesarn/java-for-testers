@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Catalog {
-   private Map<Fruit,Double> pricePerKilo = new HashMap<>();
+   private final Map<Fruit,Double> pricePerKilo = new HashMap<>();
 
 //public PriceSetter setPriceOf(Fruit fruit)
 //{
