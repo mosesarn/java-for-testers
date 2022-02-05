@@ -48,4 +48,11 @@ public class WhenCalculatingStringNumbersTest {
 
         Assertions.assertThat(result).isEqualTo(0);
     }
+
+    @Test
+    public void shouldCalculateStringExpression(){
+        StringCalExpression stringCalExpression = new StringCalExpression();
+        Integer result = stringCalExpression.calculateStringExpression("12 + 2 * 2 * 2 *2 -8");
+        Assertions.assertThat(result).isEqualTo(20);
+    }
 }
