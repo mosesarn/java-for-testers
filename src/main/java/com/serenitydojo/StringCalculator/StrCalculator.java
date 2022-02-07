@@ -16,33 +16,61 @@ public class StrCalculator {
         tokenItems.addAll(tokens);
 
         int runningTotal = 0;
-        int runningTotal1 = 1;
+       // int runningTotal1 = 1;
         int plusOrMinusModifier = 1;
-                boolean firstMultiply = true;
-        if(tokenItems.contains("*")){
-            int indexOfStarIcon = tokenItems.lastIndexOf("*"); // int indexOfStarIcon = tokenItems.indexOf("*");
-            String lastBeforeValueOfStar = tokenItems.get(indexOfStarIcon-2);
-            int i =0;
-            int j =1;
-            do {
-                if (firstMultiply) {
-                    String leftValueOfStar = tokenItems.get(indexOfStarIcon - 1);
-                    String rightValueOfStar = tokenItems.get(indexOfStarIcon + 1);
-                    runningTotal = runningTotal + Integer.parseInt(leftValueOfStar) * Integer.parseInt(rightValueOfStar);
-                    firstMultiply = false;
-                    tokenItems.remove(indexOfStarIcon +j);
-                    tokenItems.remove(indexOfStarIcon);
-                    tokenItems.remove(indexOfStarIcon-j);
-                    j=j+1;
-                }else{
-                    runningTotal = runningTotal * Integer.parseInt(tokenItems.get(indexOfStarIcon - i - 1));
-                    tokenItems.remove(indexOfStarIcon -j);
-                    tokenItems.remove(indexOfStarIcon -j -1);
-                }
-                i=i+2;
-            }while ((tokenItems.get(indexOfStarIcon-i).equals("*")));
+                boolean isFirstMultiply = true;
+        boolean isTokenItemAddToList = true;
+        int i =0;
+        int j =1;
+        int indexOfStarIcon ; // int indexOfStarIcon = tokenItems.indexOf("*");
+        do {
+            if(tokenItems.contains("*")){
+                indexOfStarIcon = tokenItems.lastIndexOf("*"); // int indexOfStarIcon = tokenItems.indexOf("*");
+                String lastBeforeValueOfStar = tokenItems.get(indexOfStarIcon-2);
 
-        }
+                do {
+                    int counter = 1;
+                    if (isFirstMultiply) {
+                        String leftValueOfStar = tokenItems.get(indexOfStarIcon - 1);
+                        String rightValueOfStar = tokenItems.get(indexOfStarIcon + 1);
+                        runningTotal = runningTotal + Integer.parseInt(leftValueOfStar) * Integer.parseInt(rightValueOfStar);
+                        isFirstMultiply = false;
+
+                        tokenItems.remove(indexOfStarIcon +j);
+                        tokenItems.remove(indexOfStarIcon);
+                        tokenItems.remove(indexOfStarIcon-j);
+                        j=j+1;
+                    }else{
+
+                        j=j+1;
+                        runningTotal = runningTotal * Integer.parseInt(tokenItems.get(indexOfStarIcon - i - 1));
+                        tokenItems.remove(indexOfStarIcon -j);
+                        tokenItems.remove(indexOfStarIcon -j -1);
+                        isTokenItemAddToList = false;
+
+                        counter = counter +1;
+                    }
+                    i=i+2;
+                }while ((tokenItems.get(indexOfStarIcon-i).equals("*")));
+//                if (tokenItems.get(indexOfStarIcon-i).equals("+")) {
+//                    plusOrMinusModifier =1;
+//                }else if (tokenItems.get(indexOfStarIcon-i).equals("-")){
+//                    plusOrMinusModifier =-1;
+//                }
+               // runningTotal = runningTotal * plusOrMinusModifier;
+                if (isTokenItemAddToList){
+                    tokenItems.add(indexOfStarIcon -j+1,Integer.toString(runningTotal));
+                }else{
+                    tokenItems.add(indexOfStarIcon -j-1,Integer.toString(runningTotal));
+                }
+                 i =0;
+                 j =1;
+                 runningTotal = 0;
+                isFirstMultiply = true;
+            }
+        } while (tokenItems.contains("*"));
+
+
         for(String tokenItem : tokenItems){
            //check for the order of Precedence * mltiply , / div , then + add - substract
             // Code for the Single 1 + 2 * 2 -2

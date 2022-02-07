@@ -1,48 +1,99 @@
 package com.serenitydojo.StringCalculator;
 
-import org.apache.commons.lang3.StringUtils;
+/**
+ * Order of precedence of mathematical operations in an Expression.
+ * Parentheses, Exponents, Multiplication/Division, Addition/Subtraction. PEMDAS
+ * is often expanded to the mnemonic "Please Excuse My Dear Aunt Sally" in schools.
+ *
+ *
+ * Step1: First need to calculate the Parentheses, Exponents, Multiplication/Division,
+ *        Addition/Subtraction.
+ * Step2: Implementation login will vary from format of the string we use. based on Splitting the string OR
+ *        from the length of the string and going through each character
+ */
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Calculator {
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 
-    private static final String WHITE_SPACES_OR_DOLLAR = "\\$|\\s";
+/**
+ * # String Calculator Challenge
+ *
+ * The aim of this challenge is to implement a simple integer calculator. The calculator takes a string of
+ * space-separated numbers and operators (like "1 + 2 + 3" or "10 + 4 - 5") and returns the result of the calculation.
+ *
+ * It should resolve the following sums:
+ *
+ * - "1"
+ * - "1 + 1"
+ * - "1 + 2 + 3"
+ * - "10 - 6"
+ * - "10 + 5 - 6"
+ * - "10 * 5"
+ *
+ * If an operator isn't known, an exception should be thrown.
+ *
+ *
+ */
+
+public class Calculator {
+    /**
+     * @param stringNumericalExpression is a string expression
+     * - "1"
+     * * - "1 + 1"
+     * * - "1 + 2 + 3"
+     * * - "10 - 6"
+     * * - "10 + 5 - 6"
+     * * - "10 * 5"
+     * @return : returns the result of the calculation.
+     */
+
+    private static final String WHITESPACE = "\\s";
+
     public Number evaluate(String stringNumericalExpression) {
-       /*
-       * 1. converted the string to integer using Integer.ParseInt(string).
-       * removed the spaces from the stringExpression. -- NumberFormatException.
-       *  String trimmedNumber = stringNumericalExpression.trim();
-       * 2. split using the regular expression and using the streams arrays.stream().filter().collect to list
-       * 3. can also be done by using replace(" ","").replace("$","");
-       * 4. Add dependency group id org.apache.commons, artfact id : commons-lang3, version 3.10
-       *     OR  List<String> tokens = Splitter.on(" ").splitToList(expression);
-       * */
-        List<String> tokens = Arrays.stream( stringNumericalExpression.split(WHITE_SPACES_OR_DOLLAR))
-                .filter(element -> !element.isEmpty())
+
+
+        if (stringNumericalExpression.isEmpty() || stringNumericalExpression.isBlank()) {
+            return 0;
+        }
+        // 1.
+        List<String> toCalculateItems = List.of((stringNumericalExpression.split(WHITESPACE)))
+                .stream().filter(element -> !element.isEmpty())
+                .collect(Collectors.toList());
+        // 2.
+        List<String> toCalculateItems1 = Arrays.stream(stringNumericalExpression.split(WHITESPACE))
+                .filter(item -> !item.isEmpty())
                 .collect(Collectors.toList());
 
-        List<String> tokenItems = new ArrayList<>();
-                tokenItems.addAll(tokens);
-        int runningTotal = 0;
-        int plusOrMinusModifier = 1;
-        for(String token : tokens){
-            System.out.println("TOKEN =  "+token);
 
-            if(token.equals("+")){
-                plusOrMinusModifier = 1;
-            }else if (token.equals("-")){
-                plusOrMinusModifier = -1;
-            }else if (token.equals("*")){
-                return runningTotal = runningTotal * plusOrMinusModifier * Integer.parseInt(token);
-            }
-            if(StringUtils.isNumeric(token)){
+        int successiveTotal = 0;
+        String nextOperator = "+";
 
-                runningTotal = runningTotal + plusOrMinusModifier * Integer.parseInt(token);
+
+        for (String toCalculateItem : toCalculateItems) {
+            System.out.println(" toCalculateItem :  " + toCalculateItem);
+            if(!isNumeric(toCalculateItem)){
+                nextOperator = toCalculateItem;
+            }else{
+                successiveTotal = calculateExpression(successiveTotal,nextOperator,toCalculateItem);
             }
+
         }
-        return runningTotal;
+        return successiveTotal;
+    }
+
+    private int calculateExpression(int successiveTotal, String nextOperator, String toCalculateItem) {
+        switch (nextOperator){
+            case "+":
+                return successiveTotal + Integer.parseInt(toCalculateItem);
+            case "-":
+                return successiveTotal - Integer.parseInt(toCalculateItem);
+            case "*":
+                return successiveTotal * Integer.parseInt(toCalculateItem);
+            default:
+                throw new IllegalMathsOperatorException("UnKnown Operator" +nextOperator);
+        }
     }
 }

@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 public class WhenCalculatingStringNumbersTest {
-    Calculator calculator = new Calculator();
+   Calculator calculator = new Calculator();
     @Test
     public void shouldReturnANumericalValueOfAInteger(){
         String theGivenNumber = "10 + 12";
