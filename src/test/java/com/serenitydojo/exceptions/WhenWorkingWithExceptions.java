@@ -2,11 +2,17 @@ package com.serenitydojo.exceptions;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
+import static com.serenitydojo.exceptions.DataSetUp.loadTestData;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+/**
+ * Exceptions: NullPointerException , NoSuchFileException,ArithmeticException,
+ */
 public class WhenWorkingWithExceptions {
 
     WordCounter wordCounter = new WordCounter();
@@ -40,5 +46,48 @@ public class WhenWorkingWithExceptions {
         int numberOfWords = wordCounter.numOfWordsInAFile("src/main/resources/No_Word.txt");
        //assertThat(numberOfWords).isEqualTo(0);
     }
+    @Test(expected = ArithmeticException.class)
+    public void basicArithmeticException ()
+    {
+        int a = 30, b = 0,c;
+        c = a / b;
+        System.out.println(" result of division " +c);
+    }
+    @Test
+    public void basicArrayOutBoundORIndexOutOfBoundException(){
+        List<String> names = Arrays.asList("Moses","Joshua","Caleb");
 
-}
+        try {
+            System.out.println(" Name:  " +names.get(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Test
+    public void basicIOException(){
+        File testDataFile = new File("src/main/resources/test-data/sample-data.txt");
+        System.out.println(testDataFile.exists());
+
+        try {
+           // String fileContent = Files.readString(Path.of("src/main/resources/test-data/sample-data1.txt"));
+            String fileContent = null;
+            System.out.println(fileContent.length());
+            System.out.println(testDataFile.exists());
+        } finally {
+
+        }
+    }
+   @Test
+   public void basicException() throws IOException {
+
+      loadTestData();
+   }
+
+
+
+
+
+
+    }
+
