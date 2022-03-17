@@ -14,7 +14,9 @@ public class WhenWorkingWithArrays {
         moreColors[0] = "yellow";
         moreColors[1] = "purple";
         moreColors[2] = "black";
-        //System.out.println("First Color:  "+moreColors[0]);
+        System.out.println("Before Sorting Color:  "+color);
+
+
         for (int i = 0; i < moreColors.length; i++) {
             System.out.println("more colors:  "+moreColors[i]);
         }

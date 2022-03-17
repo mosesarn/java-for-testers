@@ -1,0 +1,52 @@
+{
+  "testData": [{
+    "testName":"LoginTest",
+    "data": [{
+      "runMode": "y",
+      "browser": "chrome",
+      "userName": "AdminUser",
+      "password": "AdminPassword"
+    },
+      {
+      "runMode": "n",
+      "browser": "firefox",
+      "userName": "ReadOnly",
+      "password": "ReadOnlyUserPassword"
+    },
+      {
+      "runMode": "y",
+      "browser": "edge",
+      "userName": "ReadWrite",
+      "password": "ReadWriteUserPassword"
+    }
+    ]
+  },
+    { "testName":"purchaseProductTest",
+      "data": [{
+        "runMode": "y",
+        "browser": "chrome",
+        "productName": "I phone 10",
+        "minCost": "10000",
+        "maxCost": "50000"
+      },
+        {
+          "runMode": "n",
+          "browser": "firefox",
+          "productName": "Think Pad",
+          "minCost": "10000",
+          "maxCost": "50000"
+        },
+        {
+          "runMode": "y",
+          "browser": "edge",
+          "productName": "Samsung Galaxy",
+          "minCost": "10000",
+          "maxCost": "50000"
+        }
+      ]
+    }
+
+
+
+  ]
+}

@@ -25,10 +25,10 @@ Assertions.assertThat(simpleList).contains("a string value",123);
         List<String> names = Arrays.asList("Moses","Arnold","Kumar");
         List<Integer> ages = Arrays.asList(10,9);
         // Number can hold all types of numeric.
-        List<Number> favourateNumber = Arrays.asList(10,9,10000000000000L,3.149876);
+        List<Number> favouriteNumber = Arrays.asList(10,9,10000000000000L,3.149876);
         Assert.assertEquals(ages.get(0).toString(),"10");
         Assert.assertEquals(names.get(0).toString(),"Moses");
-        Assert.assertEquals(favourateNumber.get(0).toString(),"10");
+        Assert.assertEquals(favouriteNumber.get(0).toString(),"10");
     }
     @Test
     public void removingListItem(){
